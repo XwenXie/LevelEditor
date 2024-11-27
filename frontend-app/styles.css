@@ -1,0 +1,30 @@
+body{
+    font-family:Arial,sans-serif;
+}
+
+#toolbox
+{
+    margin-bottom:10px;
+}
+
+#editor{
+    width: 800px;
+    height: 600px;
+    border: 1px solid #333;
+    position: relative;
+    background-color: #f0f0f0;
+}
+
+.block{
+    width: 50px;
+    height: 50px;
+    background-color :#ff6600;
+    position: absolute;
+    cursor: move;
+}
+    .block:hover{
+        opacity: 0.5;
+    }
+#save-level{
+    margin-top: 10px;
+}

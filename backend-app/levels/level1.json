@@ -1,0 +1,50 @@
+[
+  {
+    "id": "block-0",
+    "x": 10,
+    "y": 10,
+    "width": 50,
+    "height": 50,
+    "type": "block"
+  },
+  {
+    "id": "block-1",
+    "x": 10,
+    "y": 10,
+    "width": 50,
+    "height": 50,
+    "type": "block"
+  },
+  {
+    "id": "block-2",
+    "x": 10,
+    "y": 10,
+    "width": 50,
+    "height": 50,
+    "type": "block"
+  },
+  {
+    "id": "block-3",
+    "x": 160,
+    "y": 53,
+    "width": 50,
+    "height": 50,
+    "type": "block"
+  },
+  {
+    "id": "block-4",
+    "x": 260,
+    "y": 87,
+    "width": 50,
+    "height": 50,
+    "type": "block"
+  },
+  {
+    "id": "block-5",
+    "x": 131,
+    "y": 126,
+    "width": 50,
+    "height": 50,
+    "type": "block"
+  }
+]
