@@ -96,6 +96,12 @@ $(function () {
         });
     });
 
+    // Clear the editor
+    $("#clear-block").click(function () {
+        $("#editor").empty();
+    });  
+
+    
     // Load a selected level from the server
     $("#load-level").click(function () {
         const levelId = $("#level-list").val();
@@ -144,7 +150,7 @@ $(function () {
                 });
             },
             error: function (xhr, status, error) {
-                alert("Error loading level: " + xhr.responseText);
+                alert("Error loading level: " + error);
             }
         });
     });
