@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas" width="800" height="600"></canvas>
+        <div id="game-ui">
+            <select id="level-select">
+                <option value="">Select a level</option>
+            </select>
+            <button id="load-level">Load Level</button>
+            <div id="game-stats">
+                <span id="time">Time: 0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Physics engine -->
+    <script src="https://cdn.jsdelivr.net/npm/planck@latest/dist/planck.min.js"></script>
+    
+    <!-- Game scripts -->
+    <script src="game.js"></script>
+</body>
+</html>

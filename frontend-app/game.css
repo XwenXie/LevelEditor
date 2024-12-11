@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+}
+
+#game-container {
+    position: relative;
+}
+
+#game-canvas {
+    background-color: #000;
+    border: 2px solid #333;
+}
+
+#game-ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#game-stats {
+    margin-top: 10px;
+}
+
+#game-stats span {
+    margin-right: 20px;
+}
+
+#level-select {
+    padding: 5px;
+    background: #333;
+    color: white;
+    border: 1px solid #444;
+}

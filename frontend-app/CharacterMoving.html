@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Planck.js Character Movement</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            background-color: #87CEEB; /* Light sky blue background */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/planck/dist/planck.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            
+            var pl = planck, Vec2 = pl.Vec2;
+            var world = new pl.World(Vec2(0, -10)); 
+            
+            var ground = world.createBody();
+            ground.createFixture(pl.Edge(Vec2(-40, 0), Vec2(40, 0)));
+
+            
+            var character = world.createDynamicBody(Vec2(0, 5));
+            character.createFixture(pl.Box(0.5, 1), {
+                density: 1.0,
+                friction: 0.3
+            });
+
+        
+            var canvas = document.getElementById('gameCanvas');
+            var ctx = canvas.getContext('2d');
+
+            
+            var spriteImages = {
+                idle: [],
+                run: [],
+                jump: []
+            };
+
+            var currentAction = 'idle';
+            var currentFrame = 0;
+            var frameCount = 0;
+            var frameDelay = 5; // Adjust this to change animation speed
+
+          
+            var actions = ['idle', 'run', 'jump'];
+            var imagesToLoad = 9; // 3 images per action
+            var imagesLoaded = 0;
+
+            actions.forEach(function (action) {
+                for (var i = 1; i <= 3; i++) {
+                    var img = new Image();
+                    img.src = 'sprites/' + action + i + '.png';
+                    img.onload = function () {
+                        imagesLoaded++;
+                        if (imagesLoaded === imagesToLoad) {
+                            
+                            update();
+                        }
+                    };
+                    spriteImages[action].push(img);
+                }
+            });
+
+            
+            var keys = {};
+            $(document).keydown(function (e) {
+                keys[e.which] = true;
+            });
+            $(document).keyup(function (e) {
+                keys[e.which] = false;
+            });
+
+           
+            var facingLeft = false; 
+
+            
+            function update() {
+               
+                var force = 20;
+                var velocity = character.getLinearVelocity();
+                var position = character.getPosition();
+
+                var moving = false;
+
+                // Left (A key)
+                if (keys[65]) {
+                    character.applyForceToCenter(Vec2(-force, 0), true);
+                    currentAction = 'run';
+                    moving = true;
+                    facingLeft = true; 
+                }
+                // Right (D key)
+                else if (keys[68]) {
+                    character.applyForceToCenter(Vec2(force, 0), true);
+                    currentAction = 'run';
+                    moving = true;
+                    facingLeft = false; 
+                }
+                // Up (W key) - Jump
+                if (keys[87]) {
+                    
+                    if (Math.abs(velocity.y) < 0.01) {
+                        character.applyLinearImpulse(Vec2(0, 10), character.getWorldCenter(), true);
+                        currentAction = 'jump';
+                    }
+                }
+
+                if (!moving && Math.abs(velocity.y) < 0.01) {
+                    currentAction = 'idle';
+                }
+
+               
+                world.step(1 / 60);
+
+              
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+              
+                ctx.fillStyle = 'green';
+                ctx.fillRect(0, canvas.height - 20, canvas.width, 20);
+
+               
+                frameCount++;
+                if (frameCount >= frameDelay) {
+                    frameCount = 0;
+                    currentFrame = (currentFrame + 1) % spriteImages[currentAction].length;
+                }
+
+               
+                var sprite = spriteImages[currentAction][currentFrame];
+                var x = character.getPosition().x * 20; 
+                var y = canvas.height - (character.getPosition().y * 20) - 20; 
+
+             
+                ctx.save();
+                ctx.translate(x, y);
+                if (facingLeft) {
+                    ctx.scale(-1, 1);
+                }
+                ctx.drawImage(sprite, -sprite.width / 2, -sprite.height / 2);
+                ctx.restore();
+
+                requestAnimationFrame(update);
+            }
+        });
+    </script>
+</body>
+</html>
